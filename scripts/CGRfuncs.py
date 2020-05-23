@@ -16,7 +16,7 @@ def seq_generator(pathtofasta):
 
 def generatePoints(dnaSeq):
     '''
-    Dada una secuencia obtiene los puntos mediante
+    Dada una secuencia de caracteres obtiene los puntos mediante
     las reglas del juego del caos
     '''
     pntStack = [(0.5,0.5)]
@@ -45,8 +45,8 @@ def generatePoints(dnaSeq):
 
 def to_cgr(pathtofasta, figname):
     '''
-    De un conjunto de puntos obtiene su representación gráfica y la guarda
-    en el directorio figures
+    Obtiene una secuencia de un archivo fasta, obtiene sus puntos y grafica
+    su CGR
     '''
     pts = generatePoints(seq_generator(pathtofasta))
     #
