@@ -1,13 +1,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-'''
-Modulo para generación de firmas genómicas
-'''
+def seq_generator(pathtofasta):
+    '''
+    Devuelve la concatenación de los reads de un archivo fasta
+    '''
+    fasta_file = open(pathtofasta)
+    final_seq = ''
+    for i, read in enumerate(fasta_file):
+        if i > 0:
+            final_seq += read.rstrip()
+    fasta_file.close()
+    return final_seq
+# end
 
 def generatePoints(dnaSeq):
     '''
-    Dada una secuencia obtiene los puntos mediante las reglas del juego del caos
+    Dada una secuencia obtiene los puntos mediante
+    las reglas del juego del caos
     '''
     pntStack = [(0.5,0.5)]
     newX, newY = 0, 0
@@ -33,11 +43,13 @@ def generatePoints(dnaSeq):
     return pntStack
 # end
 
-def chaos_game_rep(pts, figname):
+def to_cgr(pathtofasta, figname):
     '''
-    De un conjunto de puntos obtiene su representación gráfica y la guarda en
-    el directorio figures
+    De un conjunto de puntos obtiene su representación gráfica y la guarda
+    en el directorio figures
     '''
+    pts = generatePoints(seq_generator(pathtofasta))
+    #
     x,y = zip(*pts)
     fig = plt.figure(figsize=(7,7))
     plt.scatter(x,y,s=0.1,color='black')
