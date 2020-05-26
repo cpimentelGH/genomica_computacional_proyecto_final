@@ -44,42 +44,29 @@ def generatePoints(dnaSeq):
     return pntStack
 # end
 
-def to_cgr(pathtofasta, figname):
+def to_cgr(fastapath, outpath, figname):
     """
     Obtiene una secuencia de un archivo fasta, obtiene sus puntos y grafica
     su CGR
     """
-    pts = generatePoints(seq_generator(pathtofasta))
+    pts = generatePoints(seq_generator(fastapath))
     #
     x,y = zip(*pts)
     fig = plt.figure(figsize=(7,7))
     plt.scatter(x,y,s=0.1,color='black')
     plt.axis('off')
     plt.tight_layout()
-    fig.savefig('figures/'+figname+'.png')
+    fig.savefig(outpath + '/' + figname + '.png')
 # end
 
-def batch_cgr(opt):
+def batch_cgr(fastadir, outdir, label):
     """
-    A partir de la opción dada genera todos las CGR de los archivos
-    correspondientes
-    0 -> betacoronavirus
-    1 -> alphacoronavirus
-    2 -> gammacoronavirus
-    3 -> deltacoronavirus
+    Genera la CGR para varios archivos vertidos en un directorio
     """
-    opts = {0: ('data/raw_data/beta/.', 'beta'),
-            1: ('data/raw_data/alpha/.', 'alpha'),
-            2: ('data/raw_data/gamma/.', 'gamma'),
-            3: ('data/raw_data/delta/.', 'delta')}
-    #
-    current_path = (opts[opt])[0]
-    current_label = (opts[opt])[1]
     i = 0
-    for file in os.listdir(current_path):
-        current_file = os.path.join(current_path, file)
+    for file in os.listdir(fastadir):
+        current_file = os.path.join(fastadir, file)
         if os.path.isfile(current_file):
-            label = current_label+str(i)
+            to_cgr(current_file, outdir, label+str(i))
             i+=1
-            to_cgr(current_file, label)
 # end
