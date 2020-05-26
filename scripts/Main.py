@@ -21,7 +21,7 @@ parámetros correspondientes
 2 -> gammacoronavirus
 3 -> deltacoronavirus
 """
-batch_cgr(0)
-# batch_cgr(1) # aún no hay data
+# batch_cgr(0)
+batch_cgr(1) # aún no hay data
 # batch_cgr(2) # aún no hay data
 # batch_cgr(3) # aún no hay data

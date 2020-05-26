@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import os, sys
 
 def seq_generator(pathtofasta):
-    '''
+    """
     Devuelve la concatenación de los reads de un archivo fasta
-    '''
+    """
     fasta_file = open(pathtofasta)
     final_seq = ''
     for i, read in enumerate(fasta_file):
@@ -16,10 +16,10 @@ def seq_generator(pathtofasta):
 # end
 
 def generatePoints(dnaSeq):
-    '''
+    """
     Dada una secuencia de caracteres obtiene los puntos mediante
     las reglas del juego del caos
-    '''
+    """
     pntStack = [(0.5,0.5)]
     newX, newY = 0, 0
     while len(dnaSeq) != 0:
@@ -69,9 +69,9 @@ def batch_cgr(opt):
     3 -> deltacoronavirus
     """
     opts = {0: ('data/raw_data/beta/.', 'beta'),
-    1: ('data/raw_data/alpha/.', 'alpha'),
-    2: ('data/raw_data/gamma/.', 'gamma'),
-    3: ('data/raw_data/delta/.', 'delta')}
+            1: ('data/raw_data/alpha/.', 'alpha'),
+            2: ('data/raw_data/gamma/.', 'gamma'),
+            3: ('data/raw_data/delta/.', 'delta')}
     #
     current_path = (opts[opt])[0]
     current_label = (opts[opt])[1]
