@@ -52,21 +52,27 @@ def to_cgr(fastapath, outpath, figname):
     pts = generatePoints(seq_generator(fastapath))
     #
     x,y = zip(*pts)
-    fig = plt.figure(figsize=(7,7))
-    plt.scatter(x,y,s=0.1,color='black')
+    fig = plt.figure(figsize=(2,2))
+    plt.scatter(x,y,s=0.01,color='black')
     plt.axis('off')
     plt.tight_layout()
     fig.savefig(outpath + '/' + figname + '.png')
+    plt.close()
 # end
 
 def batch_cgr(fastadir, outdir, label):
     """
     Genera la CGR para varios archivos vertidos en un directorio
     """
-    i = 0
-    for file in os.listdir(fastadir):
-        current_file = os.path.join(fastadir, file)
-        if os.path.isfile(current_file):
-            to_cgr(current_file, outdir, label+str(i))
-            i+=1
+    if not os.path.exists(fastadir) or len(os.listdir(fastadir)) == 0:
+        sys.exit("No data, for " + fastadir )
+    else:
+        if not os.path.exists(outdir):
+            os.makedirs(outdir)
+        i = 0
+        for file in os.listdir(fastadir):
+            current_file = os.path.join(fastadir, file)
+            if os.path.isfile(current_file):
+                to_cgr(current_file, outdir, label+str(i))
+                i+=1
 # end
