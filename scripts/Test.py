@@ -14,5 +14,5 @@ to_cgr() test
 """
 batch_cgr() test
 """
-# batch_cgr('data/raw_data/alpha/','figures/alpha/', 'alpha')
-# batch_cgr('data/raw_data/beta/','figures/beta/', 'beta')
+batch_cgr('data/raw_data/alpha/','figures/alpha/', 'alpha')
+batch_cgr('data/raw_data/beta/','figures/beta/', 'beta')
