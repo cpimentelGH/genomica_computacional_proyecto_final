@@ -29,7 +29,7 @@ def complexCGRGen(pathtofasta, outpath, figname):
     if not os.path.exists(pathtofasta):
         print(pathtofasta + " doesn't exists!!")
         return 0
-    pts = foo(pathtofasta)
+    pts = complexPointGen(pathtofasta)
     #
     i=0
     for pl in pts:
