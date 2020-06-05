@@ -21,8 +21,11 @@ def complexPointGen(pathtofasta):
     return point_set
 # end
 
-
 def complexCGRGen(pathtofasta, outpath, figname):
+    """
+    De un archivo .fasta con varios genomas
+    se obtienen sus CGR's
+    """
     if not os.path.exists(pathtofasta):
         print(pathtofasta + " doesn't exists!!")
         return 0
