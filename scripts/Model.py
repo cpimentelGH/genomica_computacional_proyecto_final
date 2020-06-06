@@ -13,6 +13,8 @@ nb_validation_samples = 660
 epochs = 10
 batch_size = 10
 
+
+# Construcción del Modelo ===============================
 if K.image_data_format() == 'channels_first':
     input_shape = (3, img_width, img_height)
 else:
@@ -38,10 +40,14 @@ model.add(Dropout(0.5))
 model.add(Dense(4))
 model.add(Activation('softmax'))
 
+model.summary() # Resumen de la arquitectura
+
 model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
+#=======================================================
 
+# Inicialización de conjuntos de prueba y entrenamiento=
 train_datagen = ImageDataGenerator(
     rescale=1./255,
     shear_range=0.2,
@@ -61,8 +67,10 @@ validation_generator = test_datagen.flow_from_directory(
     target_size=(200, 200),
     batch_size=10,
     class_mode='categorical')
+#=======================================================
 
-model.fit_generator(
+# Entrenamiento ========================================
+history = model.fit_generator(
     train_generator,
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
@@ -70,3 +78,4 @@ model.fit_generator(
     validation_steps=nb_validation_samples // batch_size)
 
 model.save_weights('archive/Test.h5')
+#=======================================================

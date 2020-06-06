@@ -1,10 +1,12 @@
 # Clasificador de firmas genómicas
 
 
-### Replicación de la Ejecución
+### Obtención de datos
 
-Existen algunos archivos `.fasta` de prueba en el directorio `data/raw_data/beta` y `data/raw_data/alpha` para betacoronavirus y alphacoronavirus respectivamente.
+Recolección manual de datos de [NCBI](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/) con los siguientes filtros
 
-Para generar las CGR's de todos los archivos de uno de estos directorios deberá de ejecutarse `python scripts/Test.py` desde el directorio base. 
+- Entrenamiento: `taxid`, `genbank`, `complete` de mayor a menor longitud de secuencias
 
-**NOTA: Las CGR son automáticamente depositadas en el directorio figures.**
+- Validación: `taxid`, `genbank`, `partial` de mayor a menor longitud de secuencias
+
+
