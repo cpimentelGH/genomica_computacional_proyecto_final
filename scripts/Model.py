@@ -4,6 +4,7 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
 import matplotlib.pyplot as plt
+import os, sys
 
 # Sorry prof me volé su función del notebook ==================================
 def graf_entrenamiento(historia, archivo):
