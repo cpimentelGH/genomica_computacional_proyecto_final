@@ -18,6 +18,8 @@ def graf_entrenamiento(historia, archivo):
     plt.plot(historia.history['accuracy'], color='blue', label='train')
     plt.plot(historia.history['val_accuracy'], color='orange', label='test')
     # save plot to file
+    if not os.path.exists(archivo):
+        os.makedirs(archivo)
     plt.savefig(archivo + '_plot.png')
     plt.show()
     del(fig)
@@ -96,6 +98,6 @@ history = model.fit_generator(
     validation_data=validation_generator,
     validation_steps=nb_validation_samples // batch_size)
 
-model.save_weights('archive/test1/Test.h5')
 graf_entrenamiento(history, 'archive/test1/')
+model.save_weights('archive/test1/Test.h5')
 #=======================================================
