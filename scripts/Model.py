@@ -4,6 +4,25 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
 
+# Sorry prof me volé su función del notebook ==================================
+def graf_entrenamiento(historia, archivo):
+    fig = plt.figure(figsize=(10,10))
+    # plot loss
+    plt.subplot(211)
+    plt.title('Cross Entropy')
+    plt.plot(historia.history['loss'], color='blue', label='train')
+    plt.plot(historia.history['val_loss'], color='orange', label='test')
+    # plot accuracy
+    plt.subplot(212)
+    plt.title('Accuracy')
+    plt.plot(historia.history['accuracy'], color='blue', label='train')
+    plt.plot(historia.history['val_accuracy'], color='orange', label='test')
+    # save plot to file
+    plt.savefig(archivo + '_plot.png')
+    plt.show()
+    del(fig)
+#============================================================================
+
 img_width, img_height = 200, 200
 
 train_data_dir = 'data/filtered/train'
@@ -69,7 +88,7 @@ validation_generator = test_datagen.flow_from_directory(
     class_mode='categorical')
 #=======================================================
 
-# Entrenamiento ========================================
+# Entrenamiento y evaluación ============================
 history = model.fit_generator(
     train_generator,
     steps_per_epoch=nb_train_samples // batch_size,
@@ -77,5 +96,6 @@ history = model.fit_generator(
     validation_data=validation_generator,
     validation_steps=nb_validation_samples // batch_size)
 
-model.save_weights('archive/Test.h5')
+model.save_weights('archive/test1/Test.h5')
+graf_entrenamiento(history, 'archive/test1/')
 #=======================================================
