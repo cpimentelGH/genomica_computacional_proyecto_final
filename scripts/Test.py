@@ -1,6 +1,6 @@
-from Model import CNNModel
+from Model import CNNmodel
 
-model = CNNModel(200,200)
+model = CNNmodel(200,200)
 
 model.load_data('data/filtered/train', 'data/filtered/test')
 

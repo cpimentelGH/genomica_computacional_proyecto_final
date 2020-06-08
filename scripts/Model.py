@@ -15,6 +15,9 @@ class CNNmodel:
     """
 
     def __init__(self, img_width, img_height):
+            """
+            Constructor de la arquitectura de la CNN
+            """
             if K.image_data_format() == 'channels_first':
                 input_shape = (3, img_width, img_height)
             else:
@@ -46,6 +49,9 @@ class CNNmodel:
     # end def
 
     def load_data(self, pathtotrain, pathtotest):
+        """
+        Genera un DirectoryIterator sobre las muestras de entrenamiento y prueba
+        """
         train_datagen = ImageDataGenerator(
             rescale=1./255,
             shear_range=0.2,
@@ -71,6 +77,10 @@ class CNNmodel:
     # end def
 
     def train(self, epochs, batch_size, savepath, testname):
+        """
+        Entrena el modelo con las muestras de entrenamiento y prueba cargados
+        Además guarda los pesos y la gráfica de presición
+        """
         history = self.model.fit_generator(
             self.train_generator,
             steps_per_epoch = self.train_samples // batch_size,
@@ -86,6 +96,9 @@ class CNNmodel:
 
 
     def graf_entrenamiento(self, historia, archivo):
+        """
+        Grafica el entrenamiento del modelo
+        """
         fig = plt.figure(figsize=(10,10))
         # plot loss
         plt.subplot(211)
