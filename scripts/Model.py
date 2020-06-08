@@ -94,7 +94,6 @@ class CNNmodel:
         self.model.save_weights(savepath + '/' + testname + '.h5')
     # end def
 
-
     def graf_entrenamiento(self, historia, archivo):
         """
         Grafica el entrenamiento del modelo
