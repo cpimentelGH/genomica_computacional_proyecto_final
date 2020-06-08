@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import os, sys
 
 
-class CNNModel:
+class CNNmodel:
 
     """
     Clase que define la arquitectura de la CNN a utilizar
@@ -103,5 +103,4 @@ class CNNModel:
         del(fig)
     # end def
 
-
-# END CNNModel
+# END CNNmodel
