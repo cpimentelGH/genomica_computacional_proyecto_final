@@ -1,7 +1,9 @@
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Activation, Dropout, Flatten, Dense
+from keras.layers import Conv2D, MaxPooling2D, Convolution2D, AveragePooling2D
+from keras.layers import Activation, Dropout, Flatten, Dense, BatchNormalization
+from keras.callbacks import EarlyStopping
+from keras.optimizers import Adam
 from keras import backend as K
 import matplotlib.pyplot as plt
 import os, sys
@@ -17,34 +19,43 @@ class CNNmodel:
     def __init__(self, img_width, img_height):
         """
         Constructor de la arquitectura de la CNN
+        como VGG de tres bloques
         """
         if K.image_data_format() == 'channels_first':
-            input_shape = (3, img_width, img_height)
+            inshp = (3, img_width, img_height)
         else:
-            input_shape = (img_width, img_height, 3)
-        #
+            inshp = (img_width, img_height, 3)
+        # 1er bloque
         self.model = Sequential()
-        self.model.add(Conv2D(32, (3, 3), input_shape=input_shape))
-        self.model.add(Activation('relu'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        #
-        self.model.add(Conv2D(32, (3, 3)))
-        self.model.add(Activation('relu'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        #
-        self.model.add(Conv2D(64, (3, 3)))
-        self.model.add(Activation('relu'))
-        self.model.add(MaxPooling2D(pool_size=(2, 2)))
-        #
+        self.model.add(Convolution2D(32, kernel_size=(4,4), padding="same",
+                                     kernel_initializer="he_uniform",
+                                     activation='relu', input_shape=inshp))
+        self.model.add(Convolution2D(32, kernel_size=(4,4), padding="same",
+                                     kernel_initializer="he_uniform",
+                                     activation='relu'))
+        self.model.add(AveragePooling2D((2,2), strides=(4,4), padding='same',
+                                         data_format=None, **kwargs))
+        # 2do bloque
+        self.model.add(Convolution2D(64, kernel_size=(4,4), padding="same",
+                                     kernel_initializer="he_uniform",
+                                     activation='relu'))
+        self.model.add(MaxPooling2D((2,2), strides=(4,4)))
+        self.model.add(BatchNormalization())
+        # 3er bloque
+        self.model.add(Convolution2D(128, kernel_size=(4,4), padding="same",
+                                     kernel_initializer="he_uniform",
+                                     activation='relu'))
+        self.model.add(MaxPooling2D((2,2), strides=(4,4)))
+        self.model.add(BatchNormalization())
+        # Bloque final
         self.model.add(Flatten())
-        self.model.add(Dense(64))
-        self.model.add(Activation('relu'))
+        self.model.add(Dense(128, activation='tanh'))
         self.model.add(Dropout(0.5))
-        self.model.add(Dense(4))
-        self.model.add(Activation('softmax'))
-        #
-        self.model.compile(loss='binary_crossentropy',
-                      optimizer='adam',
+        self.model.add(Dense(4, activation='softmax'))
+        # Compilar
+        opt = Adam(lr=0.0001)
+        self.model.compile(loss='categorical_crossentropy',
+                      optimizer=opt,
                       metrics=['accuracy'])
     # end def
 
@@ -81,6 +92,7 @@ class CNNmodel:
         Entrena el modelo con las muestras de entrenamiento y prueba cargados
         Además guarda los pesos y la gráfica de presición
         """
+        es = EarlyStopping(patience=3, monitor='val_loss', mode='min', verbose='1')
         history = self.model.fit_generator(
             self.train_generator,
             steps_per_epoch = self.train_samples // batch_size,
