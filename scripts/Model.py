@@ -34,7 +34,7 @@ class CNNmodel:
                                      kernel_initializer="he_uniform",
                                      activation='relu'))
         self.model.add(AveragePooling2D((2,2), strides=(4,4), padding='same',
-                                         data_format=None, **kwargs))
+                                         data_format=None))
         # 2do bloque
         self.model.add(Convolution2D(64, kernel_size=(4,4), padding="same",
                                      kernel_initializer="he_uniform",
