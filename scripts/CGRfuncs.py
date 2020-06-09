@@ -8,14 +8,14 @@ def seq_generator(pathtofasta):
     """
     fasta_file = open(pathtofasta)
     final_seq = ''
-    for i, read in enumerate(fasta_file):
-        if i > 0:
+    for read in fasta_file:
+        if read[:1] != '>':
             final_seq += read.rstrip()
     fasta_file.close()
     return final_seq
 # end
 
-def generatePoints(dnaSeq):
+def points_gen(dnaSeq):
     """
     Dada una secuencia de caracteres obtiene los puntos mediante
     las reglas del juego del caos
@@ -44,13 +44,11 @@ def generatePoints(dnaSeq):
     return pntStack
 # end
 
-def to_cgr(fastapath, outpath, figname):
+def cgr_plot(pts, outpath, figname):
     """
-    Obtiene una secuencia de un archivo fasta, obtiene sus puntos y grafica
-    su CGR
+    De un lista de puntos generados por las reglas del juego del caos se
+    grafican en su correspondiente CGR
     """
-    pts = generatePoints(seq_generator(fastapath))
-    #
     x,y = zip(*pts)
     fig = plt.figure(figsize=(2,2))
     plt.scatter(x,y,s=0.01,color='black')
@@ -75,4 +73,41 @@ def batch_cgr(fastadir, outdir, label):
             if os.path.isfile(current_file):
                 to_cgr(current_file, outdir, label+str(i))
                 i+=1
-# end
+# end def
+
+def train_set_gen(pathtofasta, outpath, classlabel):
+    """
+    De un fasta con varios genomas juntos se calculan sus puntos y se almacenan
+    sus CGR's
+    """
+    if not os.path.exists(pathtofasta):
+        print(pathtofasta + " doesn't exists!!")
+        return 0
+    fasta_file = open(pathtofasta)
+    # Etapa de generación de puntos por juego del caos
+    point_set = []
+    tmp_seq = ''
+    for read in fasta_file:
+        if read[:1] != '>':
+            tmp_seq += read.strip()
+        else:
+            point_set.append(points_gen(tmp_seq))
+            tmp_seq = []
+    point_set.append(points_gen(tmp_seq)) # The last genome in tmp_seq
+    point_set.pop(0)
+    # Etapa de graficación en CGR
+    i=0
+    for ps in point_set:
+        x,y = zip(*ps)
+        fig = plt.figure(figsize=(2,2))
+        plt.scatter(x,y,s=0.01,color='black')
+        plt.axis('off')
+        plt.tight_layout()
+        if not os.path.exists(outpath):
+            os.makedirs(outpath)
+        fig.savefig(outpath + '/' + classlabel + str(i) + '.png')
+        i += 1
+        plt.close()
+    print("Train set created!")
+    return 1
+# end def
