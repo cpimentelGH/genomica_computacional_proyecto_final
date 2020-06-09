@@ -13,7 +13,7 @@ def seq_generator(pathtofasta):
             final_seq += read.rstrip()
     fasta_file.close()
     return final_seq
-# end
+# end def
 
 def points_gen(dnaSeq):
     """
@@ -42,7 +42,7 @@ def points_gen(dnaSeq):
     #
     pntStack.pop(0) # se elimina el punto inicial
     return pntStack
-# end
+# end def
 
 def cgr_plot(pts, outpath, figname):
     """
@@ -54,9 +54,11 @@ def cgr_plot(pts, outpath, figname):
     plt.scatter(x,y,s=0.01,color='black')
     plt.axis('off')
     plt.tight_layout()
+    if not os.path.exists(outpath):
+        os.makedirs(outpath)
     fig.savefig(outpath + '/' + figname + '.png')
     plt.close()
-# end
+# end def
 
 def batch_cgr(fastadir, outdir, label):
     """
@@ -75,7 +77,7 @@ def batch_cgr(fastadir, outdir, label):
                 i+=1
 # end def
 
-def train_set_gen(pathtofasta, outpath, classlabel):
+def data_set_gen(pathtofasta, outpath, classlabel):
     """
     De un fasta con varios genomas juntos se calculan sus puntos y se almacenan
     sus CGR's
@@ -98,16 +100,10 @@ def train_set_gen(pathtofasta, outpath, classlabel):
     # Etapa de graficación en CGR
     i=0
     for ps in point_set:
-        x,y = zip(*ps)
-        fig = plt.figure(figsize=(2,2))
-        plt.scatter(x,y,s=0.01,color='black')
-        plt.axis('off')
-        plt.tight_layout()
-        if not os.path.exists(outpath):
-            os.makedirs(outpath)
-        fig.savefig(outpath + '/' + classlabel + str(i) + '.png')
+        label = classlabel + str(i)
+        cgr_plot(ps, outpath, label)
         i += 1
         plt.close()
-    print("Train set created!")
+    print("Imageset created!")
     return 1
 # end def

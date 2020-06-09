@@ -1,7 +1,5 @@
-from Model import CNNmodel
+from CGRfuncs import data_set_gen
 
-model = CNNmodel(200,200)
 
-model.load_data('data/filtered/train', 'data/filtered/test')
-
-model.train(10,5,'archive/test2','test2')
+data_set_gen('data/raw_data/train/alpha_train.fasta',
+             'figures/alpha_training', 'alpha')
