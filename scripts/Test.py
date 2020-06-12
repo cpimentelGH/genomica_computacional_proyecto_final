@@ -1,8 +1,10 @@
-from Model import CNNmodel
-from CGRfuncs import data_set_gen
 
-m = CNNmodel(200,200)
+from NoiseFuncs import add_noise, noise_data_gen
+from matplotlib.pyplot import imread
+import matplotlib.pyplot as plt
 
-m.load_data('data/filtered/train', 'data/filtered/test')
+# image  = imread('figures/alpha_training/alpha0.png')
+# add_noise(image, 0, 'figures/noised', 'test1')
+# add_noise(image, 1, 'figures/noised', 'test2')
 
-m.train(2, 5, 'archive/09062020', 'test1')
+noise_data_gen('figures/alpha_training', 'figures/noised_test', 50, 0, 'label')
