@@ -10,7 +10,7 @@ def add_noise(image, noisetype, outpath, label):
     label : etiqueta para la imagen
     """
     figure_size = 9
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     if noisetype == 0:
         image = cv2.blur(image, (figure_size, figure_size))
     elif noisetype == 1:
@@ -39,3 +39,7 @@ def noise_data_gen(pathtoimgs, outpath, size, seed, glabel):
         label = glabel + str(i)
         add_noise(image, random.randint(0,1), outpath, label)
 # end def
+
+# if __name__ == "__main__":
+#     noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
+#                     62, 0, 'delta_noise')
