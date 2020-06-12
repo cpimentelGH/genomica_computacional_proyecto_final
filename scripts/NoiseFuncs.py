@@ -1,8 +1,4 @@
-from scipy import misc
-from PIL import Image, ImageFilter
 from matplotlib.pyplot import imread
-import matplotlib.pyplot as plt
-import numpy as np
 import sys, os, cv2, random
 
 def add_noise(image, noisetype, outpath, label):
@@ -33,7 +29,7 @@ def noise_data_gen(pathtoimgs, outpath, size, seed, glabel):
     size : número de imágenes ruidosas a generar
     seed : semilla para los números aleatorios
     glabel : etiqueta global para los archivos
-    """ 
+    """
     random.seed(a=seed)
     for i in range(size):
         rndim = pathtoimgs + '/' + random.choice(os.listdir(pathtoimgs))
