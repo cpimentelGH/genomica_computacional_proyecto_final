@@ -9,22 +9,23 @@ import matplotlib.pyplot as plt
 import os, sys
 
 
-class CNNmodel:
+class baseVGG:
 
     """
-    Clase que define la arquitectura de la CNN a utilizar
-    y utilidades asociadas
+    Clase encargada de definir la arquitectura de baseVGG de tres bloques
     """
 
     def __init__(self, img_width, img_height):
-        """
-        Constructor de la arquitectura de la CNN
-        como VGG de tres bloques
+        """ Creación de la arquitectura baseVGG de 3 bloques
+        img_width : int
+            ancho de las imágenes target
+        img_height : int
+            altura de las imágenes target
         """
         if K.image_data_format() == 'channels_first':
-            inshp = (3, img_width, img_height)
+            inshp = (1, img_width, img_height)
         else:
-            inshp = (img_width, img_height, 3)
+            inshp = (img_width, img_height, 1)
         # 1er bloque
         self.model = Sequential()
         self.model.add(Convolution2D(32, kernel_size=(4,4), padding="same",
@@ -60,26 +61,31 @@ class CNNmodel:
     # end def
 
     def load_data(self, pathtotrain, pathtotest):
-        """
-        Genera un DirectoryIterator sobre las muestras de entrenamiento y prueba
+        """ Genera un DirectoryIterator sobre las muestras de entrenamiento y prueba
+        pathtotrain : str
+            ruta del directorio de imágenes de entrenamiento
+        pathtotrain : str
+            ruta del directorio de imágenes de prueba
         """
         train_datagen = ImageDataGenerator(
             rescale=1./255,
             shear_range=0.2,
             zoom_range=0.2,
-            horizontal_flip=True)
+            horizontal_flip=False)
         #
         test_datagen = ImageDataGenerator(rescale=1./255)
         #
         self.train_generator = train_datagen.flow_from_directory(
             pathtotrain,
             target_size=(200, 200),
+            color_mode='grayscale',
             batch_size=10,
             class_mode='categorical')
         #
         self.validation_generator = test_datagen.flow_from_directory(
             pathtotest,
             target_size=(200, 200),
+            color_mode='grayscale',
             batch_size=10,
             class_mode='categorical')
         #
@@ -88,9 +94,15 @@ class CNNmodel:
     # end def
 
     def train(self, epochs, batch_size, savepath, testname):
-        """
-        Entrena el modelo con las muestras de entrenamiento y prueba cargados
-        Además guarda los pesos y la gráfica de presición
+        """ Entrena el modelo, guarda pesos y genera gráfica
+        epochs : int
+            número de épocas
+        batch_size : int
+            tamaño del batch
+        savepath : str
+            ruta donde guardar los pesos y la gráfica generados
+        testname : str
+            label para identifcar al entrenamiento
         """
         es = EarlyStopping(patience=3, monitor='val_loss', mode='min', verbose='1')
         history = self.model.fit_generator(
@@ -107,8 +119,10 @@ class CNNmodel:
     # end def
 
     def graf_entrenamiento(self, historia, archivo):
-        """
-        Grafica el entrenamiento del modelo
+        """ Grafica el entrenamiento del modelo
+        historia :
+            un modelo entrenado
+        archivo : ruta donde guardar la gráfica
         """
         fig = plt.figure(figsize=(10,10))
         # plot loss
@@ -127,4 +141,4 @@ class CNNmodel:
         del(fig)
     # end def
 
-# END CNNmodel
+# END baseVGG

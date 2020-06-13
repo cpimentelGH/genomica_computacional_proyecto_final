@@ -1,3 +1,9 @@
-from NoiseFuncs import add_noise, noise_data_gen
+from Model import MiniVGG
+# import cv2
+#
+# im = cv2.imread('data/filtered/train/alhpa/alpha0.png')
+# print(im.shape)
 
-noise_data_gen('figures/alpha_training', 'figures/noised_test', 50, 0, 'label')
+m = MiniVGG(200,200)
+m.load_data('data/filtered/train', 'data/filtered/test')
+m.train(1, 50, 'archive/tests/test1', 'test1')
