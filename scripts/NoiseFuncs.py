@@ -40,6 +40,36 @@ def noise_data_gen(pathtoimgs, outpath, size, seed, glabel):
         add_noise(image, random.randint(0,1), outpath, label)
 # end def
 
-# if __name__ == "__main__":
-#     noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
-#                     62, 0, 'delta_noise')
+if __name__ == "__main__":
+
+    # noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
+    #                 62, 0, 'delta_noise')
+
+    # noise_data_gen('data/filtered/train/alpha', 'data/filtered/train/alpha',
+    #                 100, 0, 'alpha_noise')
+
+    # noise_data_gen('data/filtered/train/beta', 'data/filtered/train/beta',
+    #                 100, 0, 'beta_noise')
+
+    noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
+                    100, 0, 'delta_noise2')
+
+    # noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
+    #                 10, 0, 'delta_noise4')
+
+    # noise_data_gen('data/filtered/train/gamma', 'data/filtered/train/gamma',
+    #                 100, 0, 'gamma_noise')
+
+    # Añadir ruido al conjunto de prueba
+
+    # noise_data_gen('data/filtered/test/alpha', 'data/filtered/test/alpha',
+    #                 50, 0, 'alpha_noise')
+
+    # noise_data_gen('data/filtered/test/beta', 'data/filtered/test/beta',
+    #                 50, 0, 'beta_noise')
+
+    # noise_data_gen('data/filtered/test/delta', 'data/filtered/test/delta',
+    #                 50, 0, 'delta_noise')
+
+    # noise_data_gen('data/filtered/test/gamma', 'data/filtered/test/gamma',
+    #                 50, 0, 'gamma_noise')
