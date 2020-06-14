@@ -105,7 +105,7 @@ class BaseVGG:
         testname : str
             label para identifcar al entrenamiento
         """
-        es = EarlyStopping(patience=3, monitor='val_loss', mode='min', verbose='1')
+        # es = EarlyStopping(patience=3, monitor='val_loss', mode='min', verbose='1')
         history = self.model.fit_generator(
             self.train_generator,
             steps_per_epoch = self.train_samples // batch_size,
@@ -240,7 +240,7 @@ class ModedVGG1:
         testname : str
             label para identifcar al entrenamiento
         """
-        # es = EarlyStopping(patience=3, monitor='val_loss', mode='min', verbose='1')
+        es = EarlyStopping(patience=3, monitor='val_loss', mode='min', verbose='1')
         history = self.model.fit_generator(
             self.train_generator,
             steps_per_epoch = self.train_samples // batch_size,
