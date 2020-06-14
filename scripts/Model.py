@@ -29,25 +29,24 @@ class BaseVGG:
             inshp = (img_width, img_height, 1)
         # 1er bloque
         self.model = Sequential()
-        self.model.add(Convolution2D(32, kernel_size=(4,4), padding="same",
+        self.model.add(Convolution2D(32, kernel_size=(3,3), padding="same",
                                      kernel_initializer="he_uniform",
                                      activation='relu', input_shape=inshp))
-        self.model.add(Convolution2D(32, kernel_size=(4,4), padding="same",
+        self.model.add(Convolution2D(32, kernel_size=(3,3), padding="same",
                                      kernel_initializer="he_uniform",
                                      activation='relu'))
-        self.model.add(AveragePooling2D((2,2), strides=(4,4), padding='same',
-                                         data_format=None))
+        self.model.add(MaxPooling2D((2,2), strides=(2,2)))
         # 2do bloque
-        self.model.add(Convolution2D(64, kernel_size=(4,4), padding="same",
+        self.model.add(Convolution2D(64, kernel_size=(3,3), padding="same",
                                      kernel_initializer="he_uniform",
                                      activation='relu'))
-        self.model.add(MaxPooling2D((2,2), strides=(4,4)))
+        self.model.add(MaxPooling2D((2,2), strides=(2,2)))
         self.model.add(BatchNormalization())
         # 3er bloque
-        self.model.add(Convolution2D(128, kernel_size=(4,4), padding="same",
+        self.model.add(Convolution2D(128, kernel_size=(3,3), padding="same",
                                      kernel_initializer="he_uniform",
                                      activation='relu'))
-        self.model.add(MaxPooling2D((2,2), strides=(4,4)))
+        self.model.add(MaxPooling2D((2,2), strides=(2,2)))
         self.model.add(BatchNormalization())
         # Bloque final
         self.model.add(Flatten())
@@ -105,7 +104,6 @@ class BaseVGG:
         testname : str
             label para identifcar al entrenamiento
         """
-        # es = EarlyStopping(patience=3, monitor='val_loss', mode='min', verbose='1')
         history = self.model.fit_generator(
             self.train_generator,
             steps_per_epoch = self.train_samples // batch_size,
