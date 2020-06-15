@@ -51,8 +51,8 @@ if __name__ == "__main__":
     # noise_data_gen('data/filtered/train/beta', 'data/filtered/train/beta',
     #                 100, 0, 'beta_noise')
 
-    noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
-                    100, 0, 'delta_noise2')
+    noise_data_gen('data/filtered/train/delta', 'data/filtered/delta_noise',
+                    36, 0, 'delta_noise')
 
     # noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
     #                 10, 0, 'delta_noise4')

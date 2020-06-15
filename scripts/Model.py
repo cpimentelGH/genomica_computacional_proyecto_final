@@ -150,7 +150,7 @@ class ModedVGG1:
     """
 
     def __init__(self, img_width, img_height):
-        """ Creación de la arquitectura MiniVGG de 3 bloques
+        """ Modificaciones la arquitectura
         img_width : int
             ancho de las imágenes target
         img_height : int
@@ -168,7 +168,7 @@ class ModedVGG1:
         self.model.add(Convolution2D(32, kernel_size=(4,4), padding="same",
                                      kernel_initializer="he_uniform",
                                      activation='relu'))
-        self.model.add(AveragePooling2D((2,2), strides=(4,4), padding='same',
+        self.model.add(AveragePooling2D((4,4), strides=(4,4), padding='same',
                                          data_format=None))
         # 2do bloque
         self.model.add(Convolution2D(64, kernel_size=(4,4), padding="same",
