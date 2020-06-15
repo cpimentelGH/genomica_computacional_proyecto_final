@@ -128,21 +128,25 @@ class BaseVGG:
         fig = plt.figure(figsize=(10,10))
         # plot loss
         plt.subplot(211)
-        plt.title('Cross Entropy Loss')
-        plt.ylabel('loss')
         plt.plot(historia.history['loss'], color='blue', label='train')
         plt.plot(historia.history['val_loss'], color='orange', label='test')
+        plt.title('Cross Entropy Loss')
+        plt.ylabel('loss')
         # plot accuracy
         plt.subplot(212)
+        plt.plot(historia.history['accuracy'], color='blue', label='train')
+        plt.plot(historia.history['val_accuracy'], color='orange', label='test')
         plt.title('Model Accuracy')
         plt.ylabel('accuracy')
         plt.xlabel('epoch')
-        plt.plot(historia.history['accuracy'], color='blue', label='train')
-        plt.plot(historia.history['val_accuracy'], color='orange', label='test')
         # save plot to file
         plt.savefig(archivo + '/_plot.png')
         plt.show()
         del(fig)
+    # end def
+
+    def load_weights(self, filepath):
+        self.model.load_weights(filepath)
     # end def
 
 # END BaseVGG
