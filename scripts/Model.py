@@ -117,7 +117,7 @@ class BaseVGG:
         # self.model.save_weights(savepath + '/' + testname + '.h5')
         # Salva la arquitectura y los pesos
         # self.model.save(savepath + '/m.h5')
-        save_label = testname + '_model.sav'
+        save_label = '/' + testname + '_model.sav'
         pickle.dump(self.model, open(savepath + save_label, 'wb'))
     # end def
 
