@@ -114,7 +114,7 @@ class BaseVGG:
             os.makedirs(savepath)
         self.graf_entrenamiento(history, savepath)
         # Salva los pesos optimizados
-        self.model.save_weights(savepath + '/' + testname + '_weights.h5')
+        # self.model.save_weights(savepath + '/' + testname + '_weights.h5')
         # Salva la arquitectura y los pesos
         self.model.save(savepath + '/' + testname + '_model.h5')
     # end def
