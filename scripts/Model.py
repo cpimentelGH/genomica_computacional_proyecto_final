@@ -146,6 +146,9 @@ class BaseVGG:
     # end def
 
     def load_weights(self, filepath):
+        """ Carga los pesos dependiendo
+        filepath : str
+        """
         self.model.load_weights(filepath)
     # end def
 
