@@ -40,8 +40,6 @@ def noise_data_gen(pathtoimgs, outpath, size, seed, glabel):
         add_noise(image, random.randint(0,1), outpath, label)
 # end def
 
-if __name__ == "__main__":
-
     # noise_data_gen('data/filtered/train/delta', 'data/filtered/train/delta',
     #                 62, 0, 'delta_noise')
 
