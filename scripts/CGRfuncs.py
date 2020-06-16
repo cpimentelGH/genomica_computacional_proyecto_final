@@ -107,3 +107,35 @@ def data_set_gen(pathtofasta, outpath, classlabel):
     print("Imageset created!")
     return 1
 # end def
+
+#===============================================================================
+
+# if __name__ == "__main__":
+
+    # Test set generation
+
+    # data_set_gen('data/raw_data/test/alpha_test.fasta',
+    #             'data/filtered/vanilla_set/test/alpha', 'alpha')
+
+    # data_set_gen('data/raw_data/test/beta_test.fasta',
+    #             'data/filtered/vanilla_set/test/beta', 'beta')
+
+    # data_set_gen('data/raw_data/test/delta_test.fasta',
+    #             'data/filtered/vanilla_set/test/delta', 'delta')
+
+    # data_set_gen('data/raw_data/test/gamma_test.fasta',
+    #             'data/filtered/vanilla_set/test/gamma', 'gamma')
+
+    # Train set generation
+
+    # data_set_gen('data/raw_data/train/alpha_train.fasta',
+    #             'data/filtered/vanilla_set/train/alpha', 'alpha')
+
+    # data_set_gen('data/raw_data/train/beta_train.fasta',
+    #             'data/filtered/vanilla_set/train/beta', 'beta')
+
+    # data_set_gen('data/raw_data/train/delta_train.fasta',
+    #             'data/filtered/vanilla_set/train/delta', 'delta')
+
+    # data_set_gen('data/raw_data/train/gamma_train.fasta',
+    #             'data/filtered/vanilla_set/train/gamma', 'gamma')

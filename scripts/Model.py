@@ -115,10 +115,10 @@ class BaseVGG:
         self.graf_entrenamiento(history, savepath)
         # Salva los pesos optimizados
         # self.model.save_weights(savepath + '/' + testname + '.h5')
-        # Salva la arquitectura y los pesos
-        self.model.model.save(savepath + '/m.h5')
-        # save_label = '/' + testname + '_model.sav'
-        # pickle.dump(self.model, open(savepath + save_label, 'wb'))
+        # Salva el modelo entrenado
+        # self.model.model.save('m.h5')
+        save_label = '/' + testname + '_model.sav'
+        pickle.dump(self.model, open(savepath + save_label, 'wb'))
     # end def
 
     def graf_entrenamiento(self, historia, archivo):
