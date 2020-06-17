@@ -2,4 +2,3 @@ figures/*
 scripts/__pycache__/*
 scripts/.ipynb_checkpoints/*
 data/filtered/*
-archive/*
