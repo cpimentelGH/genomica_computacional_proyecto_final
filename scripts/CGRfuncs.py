@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 import os, sys
 
 def seq_generator(pathtofasta):
-    """
-    Devuelve la concatenación de los reads de un archivo fasta
+    """ Devuelve la concatenación de los reads de un archivo fasta
+    pathtofasta : str
+        Ruta al archivo FASTA a procesar
     """
     fasta_file = open(pathtofasta)
     final_seq = ''
@@ -16,9 +17,10 @@ def seq_generator(pathtofasta):
 # end def
 
 def points_gen(dnaSeq):
-    """
-    Dada una secuencia de caracteres obtiene los puntos mediante
-    las reglas del juego del caos
+    """ Dada una secuencia de caracteres obtiene los puntos mediante
+        las reglas del juego del caos
+    dnaSeq : str
+        una secuencia de aminoácidos
     """
     pntStack = [(0.5,0.5)]
     newX, newY = 0, 0
@@ -45,9 +47,11 @@ def points_gen(dnaSeq):
 # end def
 
 def cgr_plot(pts, outpath, figname):
-    """
-    De un lista de puntos generados por las reglas del juego del caos se
-    grafican en su correspondiente CGR
+    """ De un lista de puntos generados por las reglas del juego del caos se
+        grafican en su correspondiente CGR
+    pts : una lista de tuplas representando puntos
+    outpath : la ruta de salida de las imágenes
+    figname : etiqueta para la imagen
     """
     x,y = zip(*pts)
     fig = plt.figure(figsize=(2,2))
@@ -61,8 +65,9 @@ def cgr_plot(pts, outpath, figname):
 # end def
 
 def batch_cgr(fastadir, outdir, label):
-    """
-    Genera la CGR para varios archivos vertidos en un directorio
+    """ Genera la CGR para varios archivos vertidos en un directorio
+    fastadir : str
+        la ruta donde se encuentran los fasta a transformar.
     """
     if not os.path.exists(fastadir) or len(os.listdir(fastadir)) == 0:
         sys.exit("No data, for " + fastadir )
@@ -78,9 +83,11 @@ def batch_cgr(fastadir, outdir, label):
 # end def
 
 def data_set_gen(pathtofasta, outpath, classlabel):
-    """
-    De un fasta con varios genomas juntos se calculan sus puntos y se almacenan
-    sus CGR's
+    """ De un fasta con varios genomas juntos se calculan sus puntos y se almacenan
+        sus CGR's
+    pathtofasta : str ruta al archivo FASTA con múltiples genomas
+    outpath : str ruta al directorio de salida
+    classlabel : etiqueta global para las mútiples imagenes generadas
     """
     if not os.path.exists(pathtofasta):
         print(pathtofasta + " doesn't exists!!")
@@ -107,35 +114,3 @@ def data_set_gen(pathtofasta, outpath, classlabel):
     print("Imageset created!")
     return 1
 # end def
-
-#===============================================================================
-
-# if __name__ == "__main__":
-
-    # Test set generation
-
-    # data_set_gen('data/raw_data/test/alpha_test.fasta',
-    #             'data/filtered/vanilla_set/test/alpha', 'alpha')
-
-    # data_set_gen('data/raw_data/test/beta_test.fasta',
-    #             'data/filtered/vanilla_set/test/beta', 'beta')
-
-    # data_set_gen('data/raw_data/test/delta_test.fasta',
-    #             'data/filtered/vanilla_set/test/delta', 'delta')
-
-    # data_set_gen('data/raw_data/test/gamma_test.fasta',
-    #             'data/filtered/vanilla_set/test/gamma', 'gamma')
-
-    # Train set generation
-
-    # data_set_gen('data/raw_data/train/alpha_train.fasta',
-    #             'data/filtered/vanilla_set/train/alpha', 'alpha')
-
-    # data_set_gen('data/raw_data/train/beta_train.fasta',
-    #             'data/filtered/vanilla_set/train/beta', 'beta')
-
-    # data_set_gen('data/raw_data/train/delta_train.fasta',
-    #             'data/filtered/vanilla_set/train/delta', 'delta')
-
-    # data_set_gen('data/raw_data/train/gamma_train.fasta',
-    #             'data/filtered/vanilla_set/train/gamma', 'gamma')

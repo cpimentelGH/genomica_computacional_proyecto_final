@@ -1,5 +1,9 @@
-# Clasificador de firmas genómicas
+# Clasificación de los géneros de la subfamilia *Coronavirinae* basada en firmas genómicas
 
+## The Powerpuff Team
+### Integrante 1: Abasolo Cortés Natalia 🍬
+### Integrante 2: Pimentel Ruíz Carlos 🌰
+### Integrante 3: Gómez Mora Héctor Eduardo 🔵
 
 ### Obtención de datos
 
@@ -9,7 +13,6 @@ Recolección manual de datos de [NCBI](https://www.ncbi.nlm.nih.gov/labs/virus/v
 
 - Validación: `taxid`, `genbank`, `partial` de mayor a menor longitud de secuencias
 
-### Modelo(s)
+### Replicación
 
-En el archivo `Modelo.py` se encuentra la aquitectura de la CNN utilizada.
-Para poder entrenarse debe primero crearse una instancia de la clase, cargar los datasets de entrenamiento y prueba mediante sus paths y ejecutar el método `train()`. Tras finalizar el entrenamiento se genera un directorio dentro de `archive/` que contiene el *archivo de pesos* y la *gráfica de desempeño * correspondiente.
+En el directorio `scripts/` existe un notebook `Main.ipynb` que provee todas las etapas realizadas para replicar las colecciones de imágenes, los entrenamientos y las predicciones.
