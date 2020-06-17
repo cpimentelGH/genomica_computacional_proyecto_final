@@ -120,9 +120,10 @@ class BaseVGG:
 
     def graf_entrenamiento(self, historia, archivo):
         """ Grafica el entrenamiento del modelo
-        historia :
+        historia : Model
             un modelo entrenado
-        archivo : ruta donde guardar la gráfica
+        archivo : str
+            ruta de salida para la gráfica
         """
         fig = plt.figure(figsize=(10,10))
         # plot loss
